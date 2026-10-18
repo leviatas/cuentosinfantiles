@@ -1,0 +1,16 @@
+# CLAUDE.md — Guía del proyecto
+
+Lector de cuentos infantiles (React + Vite, servido por Express dockerizado,
+publicado con un túnel de Cloudflare). Textos de UI en español rioplatense.
+
+- `src/pages/Home.jsx`: inicio, elige entre los cuentos de Amelia y de Didi.
+- `src/pages/Reader.jsx`: portada/índice (`/:bookId`) y capítulo (`/:bookId/:num`).
+- `src/books.js`: metadatos de cada libro; el JSON se importa bajo demanda.
+- `src/data/*.json`: `{ parts: [{ label, name, chapters: [{ num, title, emoji?, words, blocks }] }] }`.
+  Tipos de bloque: `p`, `dialog`, `aside`, `sign` (cartel), `note` (nota pinchada), `break`.
+  El `html` sólo contiene `<strong>`, `<em>` y `<br>` (lo limpia `scripts/extract.py`).
+- `server.js`: sirve `dist/` con fallback a `index.html` para las rutas del SPA.
+- Preferencias (tema, letra, mayúsculas, último capítulo) en localStorage con try/catch.
+
+Deploy: `docker compose up -d --build` (puerto 5175) y verificar
+`curl -s http://localhost:5175/health`.
