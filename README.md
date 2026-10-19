@@ -1,6 +1,6 @@
 # Cuentos infantiles
 
-Los cuentos para dormir de **Amelia** (*Súper Labubus*, 134 capítulos) y de
+Los cuentos para dormir de **Amelia** (*Súper Labubus*, 140 capítulos) y de
 **Didi** (*Las Superlabubus*, 94 capítulos). El inicio deja elegir de quién son
 los cuentos de hoy; cada libro tiene índice con buscador, modo día/noche,
 tamaño de letra, mayúsculas, botón para copiar el cuento y recuerda el último
@@ -53,3 +53,17 @@ pip install beautifulsoup4
 python3 scripts/extract.py amelia amelia.html src/data/amelia.json
 python3 scripts/extract.py didi   didi.html   src/data/didi.json
 ```
+
+## Escribir capítulos nuevos
+
+Los capítulos nuevos se escriben en texto plano en `cuentos/<libro>/parte-N/`
+(un `parte.txt` con la etiqueta y el nombre de la parte, y un `NNN-titulo.txt`
+por capítulo; el formato está explicado arriba de `scripts/add_chapters.py`).
+Después se suman al libro con:
+
+```bash
+python3 scripts/add_chapters.py amelia
+```
+
+Se puede correr las veces que haga falta: reemplaza esas partes sin duplicarlas.
+Si se vuelve a correr `extract.py`, hay que correr `add_chapters.py` después.

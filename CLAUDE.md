@@ -9,6 +9,10 @@ publicado con un túnel de Cloudflare). Textos de UI en español rioplatense.
 - `src/data/*.json`: `{ parts: [{ label, name, chapters: [{ num, title, emoji?, words, blocks }] }] }`.
   Tipos de bloque: `p`, `dialog`, `aside`, `sign` (cartel), `note` (nota pinchada), `break`.
   El `html` sólo contiene `<strong>`, `<em>` y `<br>` (lo limpia `scripts/extract.py`).
+- Capítulos nuevos: texto plano en `cuentos/<libro>/parte-N/NNN-titulo.txt`, se suman
+  con `python3 scripts/add_chapters.py <libro>` (formato en el docstring del script).
+  Amelia: ~1000 palabras por capítulo, cada martes a las cuatro Cacu hace un plan
+  numerado (el último fue el 365, cap. 140) y termina en el tacho reservado.
 - `server.js`: sirve `dist/` con fallback a `index.html` para las rutas del SPA.
 - Preferencias (tema, letra, mayúsculas, último capítulo) en localStorage con try/catch.
 
