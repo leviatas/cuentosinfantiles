@@ -1,0 +1,29 @@
+name: cuentosinfantiles
+
+services:
+  cuentosinfantiles:
+    build: .
+    container_name: cuentosinfantiles
+    ports:
+      - "5175:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cuentosinfantiles-tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      - cuentosinfantiles
+    env_file:
+      - .env
