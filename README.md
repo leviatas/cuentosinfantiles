@@ -5,8 +5,8 @@ Los cuentos para dormir de **Amelia** (*Súper Labubus*, 140 capítulos) y de
 los cuentos de hoy; cada libro tiene índice con buscador, modo día/noche,
 tamaño de letra, mayúsculas y botón para copiar el cuento.
 
-Recuerda el último cuento de cada nena y lo pone arriba de todo en el inicio
-("Amelia estaba leyendo…", "Didi estaba leyendo…") para seguir con un toque.
+Recuerda el último cuento de cada nena ("Seguir leyendo · cap. N" en cada
+tarjeta del inicio).
 Se guarda en el servidor (`data/progress.json`), así que se recuerda aunque
 lean desde otro celular o tablet.
 

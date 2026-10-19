@@ -17,7 +17,7 @@ publicado con un túnel de Cloudflare). Textos de UI en español rioplatense.
 - Preferencias (tema, letra, mayúsculas) en localStorage con try/catch.
 - Último cuento de cada nena (`src/progress.js`): localStorage + `GET/PUT /api/progress`
   en `server.js`, guardado en `data/progress.json` (volumen `./data`); gana el más nuevo.
-  Se muestra arriba de todo en el inicio y en la portada de cada libro (`ResumeCard`).
+  Se muestra como "Seguir leyendo · cap. N" abajo de cada tarjeta del inicio.
 
 Deploy: `docker compose up -d --build` (puerto 5175) y verificar
 `curl -s http://localhost:5175/health`.
