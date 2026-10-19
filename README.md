@@ -38,6 +38,26 @@ npm run build && npm start         # producción, http://localhost:3000
    `cuentosinfantiles:3000` (el nombre del servicio en `docker-compose.yml`).
 4. `docker compose up -d --build`.
 
+## Deploy automático
+
+`.github/workflows/deploy.yml` corre en cada push a `main`: entra a
+`~/proyectos/MisProyectos/cuentosinfantiles`, hace `git pull --ff-only` y
+`docker compose up -d --build`, y después verifica `/health`. También se puede
+lanzar a mano desde la pestaña **Actions → Deploy → Run workflow**.
+
+Necesita un runner self-hosted en el servidor (una sola vez):
+
+1. En GitHub: **Settings → Actions → Runners → New self-hosted runner → Linux**.
+2. En el servidor, con tu usuario (el dueño de la carpeta y del grupo `docker`),
+   correr los comandos que muestra esa página (`mkdir actions-runner`, descargar,
+   `./config.sh --url ... --token ...`).
+3. Dejarlo como servicio para que arranque solo:
+   `sudo ./svc.sh install $USER && sudo ./svc.sh start`.
+
+Como el repo es público, conviene ir a **Settings → Actions → General → Fork pull
+request workflows** y elegir *Require approval for all external contributors*,
+para que nadie pueda correr código en el servidor con un PR desde un fork.
+
 ## Rutas
 
 | Ruta            | Qué muestra                          |

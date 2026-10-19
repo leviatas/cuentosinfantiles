@@ -23,4 +23,5 @@ publicado con un túnel de Cloudflare). Textos de UI en español rioplatense.
   Se muestra como "Seguir leyendo · cap. N" abajo de cada tarjeta del inicio.
 
 Deploy: `docker compose up -d --build` (puerto 5175) y verificar
-`curl -s http://localhost:5175/health`.
+`curl -s http://localhost:5175/health`. En el servidor lo hace solo
+`.github/workflows/deploy.yml` en cada push a `main` (runner self-hosted).
