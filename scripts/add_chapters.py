@@ -7,7 +7,7 @@ esas partes en src/data/<libro>.json, así se puede correr las veces que haga fa
 
 Cada carpeta tiene un parte.txt con dos líneas (etiqueta y nombre de la parte)
 y un archivo por capítulo (NNN-titulo.txt). Formato del capítulo:
-  # Título                → primera línea
+  # Título                → primera línea (# 🧸 Título para ponerle emoji)
   párrafos separados por una línea en blanco
   —Diálogo              → párrafo de diálogo
   ~ texto               → aparte (en cursiva)
@@ -53,7 +53,12 @@ def parse_chapter(path):
             blocks.append({"type": "dialog", "html": inline(para)})
         else:
             blocks.append({"type": "p", "html": inline(para)})
-    return {"num": num, "title": title_line.lstrip("# ").strip(), "words": words(blocks), "blocks": blocks}
+    title = title_line.lstrip("# ").strip()
+    chapter = {"num": num, "title": title}
+    first, _, rest = title.partition(" ")
+    if rest and not re.search(r"\w", first):
+        chapter = {"num": num, "title": rest.strip(), "emoji": first}
+    return {**chapter, "words": words(blocks), "blocks": blocks}
 
 
 def main(book_id):

@@ -1,7 +1,7 @@
 # Cuentos infantiles
 
-Los cuentos para dormir de **Amelia** (*Súper Labubus*, 140 capítulos) y de
-**Didi** (*Las Superlabubus*, 94 capítulos). El inicio deja elegir de quién son
+Los cuentos para dormir de **Amelia** (*Súper Labubus*, 155 capítulos) y de
+**Didi** (*Las Superlabubus*, 109 capítulos). El inicio deja elegir de quién son
 los cuentos de hoy; cada libro tiene índice con buscador, modo día/noche,
 tamaño de letra, mayúsculas y botón para copiar el cuento.
 
@@ -62,7 +62,7 @@ python3 scripts/extract.py didi   didi.html   src/data/didi.json
 
 Los capítulos nuevos se escriben en texto plano en `cuentos/<libro>/parte-N/`
 (un `parte.txt` con la etiqueta y el nombre de la parte, y un `NNN-titulo.txt`
-por capítulo; el formato está explicado arriba de `scripts/add_chapters.py`).
+por capítulo, con `# 🧸 Título` si lleva emoji como los de Didi; el formato está explicado arriba de `scripts/add_chapters.py`).
 Después se suman al libro con:
 
 ```bash
