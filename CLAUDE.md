@@ -12,7 +12,10 @@ publicado con un túnel de Cloudflare). Textos de UI en español rioplatense.
 - Capítulos nuevos: texto plano en `cuentos/<libro>/parte-N/NNN-titulo.txt`, se suman
   con `python3 scripts/add_chapters.py <libro>` (formato en el docstring del script).
   Amelia: ~1000 palabras por capítulo, cada martes a las cuatro Cacu hace un plan
-  numerado (el último fue el 365, cap. 140) y termina en el tacho reservado.
+  numerado (el último fue el 380, cap. 155) y termina en el tacho reservado; Mora es
+  su aprendiz; cada capítulo cierra con una moraleja (`~ Moraleja: ...`).
+  Didi: capítulos con emoji, tono más emotivo, sin moraleja explícita; Pipa es "él"
+  (redondito, escribe con faltas), Cacu es "Fideo" del Pueblo Gris. Último: cap. 109.
 - `server.js`: sirve `dist/` con fallback a `index.html` para las rutas del SPA.
 - Preferencias (tema, letra, mayúsculas) en localStorage con try/catch.
 - Último cuento de cada nena (`src/progress.js`): localStorage + `GET/PUT /api/progress`

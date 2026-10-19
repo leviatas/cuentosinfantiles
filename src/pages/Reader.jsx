@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { BOOKS, flatChapters } from '../books.js';
 import Controls from '../components/Controls.jsx';
@@ -67,7 +67,6 @@ export default function Reader() {
   const [query, setQuery] = useState('');
   const [navOpen, setNavOpen] = useState(false);
   const [progress, setProgress] = useState(0);
-  const contentRef = useRef(null);
 
   useEffect(() => {
     if (!meta) return;
@@ -87,16 +86,29 @@ export default function Reader() {
   useEffect(() => {
     document.title = chapter ? `${chapter.num}. ${chapter.title} · ${meta?.title}` : meta?.title || 'Cuentos';
     if (chapter) saveProgress(bookId, chapter);
-    contentRef.current?.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     setProgress(0);
     setNavOpen(false);
   }, [chapter, bookId, meta]);
 
   useEffect(() => {
     if (!chapter) return;
-    const el = document.querySelector('.chap-link.active');
-    el?.scrollIntoView({ block: 'nearest' });
+    // Sólo se mueve el índice: scrollIntoView movería también la página
+    const toc = document.querySelector('.toc');
+    const el = toc?.querySelector('.chap-link.active');
+    if (el) toc.scrollTop = el.offsetTop - toc.clientHeight / 2;
   }, [chapter]);
+
+  // El capítulo se desplaza con la página (no en un contenedor propio) para que el
+  // zoom con dos dedos del celular pueda moverse para los costados.
+  useEffect(() => {
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -110,12 +122,6 @@ export default function Reader() {
 
   if (!meta) return <Navigate to="/" replace />;
   if (book && num && !chapter) return <Navigate to={`/${bookId}`} replace />;
-
-  const onScroll = (e) => {
-    const el = e.currentTarget;
-    const max = el.scrollHeight - el.clientHeight;
-    setProgress(max > 0 ? Math.min(1, el.scrollTop / max) : 0);
-  };
 
   const q = query.trim().toLowerCase();
   const matches = (c) => !q || String(c.num) === q || c.title.toLowerCase().includes(q);
@@ -196,7 +202,7 @@ export default function Reader() {
         </button>
       </div>
 
-      <main className="content" ref={contentRef} onScroll={onScroll}>
+      <main className="content">
         <div className="col">
           {!book && <div className="loading">Abriendo el libro…</div>}
 
