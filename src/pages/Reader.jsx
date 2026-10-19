@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { BOOKS, flatChapters } from '../books.js';
 import Controls from '../components/Controls.jsx';
+import TextFab from '../components/TextFab.jsx';
 import { usePrefs } from '../prefs.js';
 import { saveProgress } from '../progress.js';
 
@@ -277,6 +278,8 @@ export default function Reader() {
           )}
         </div>
       </main>
+
+      <TextFab prefs={prefs} />
     </div>
   );
 }

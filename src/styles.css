@@ -213,10 +213,34 @@ a { color: inherit; text-decoration: none; }
 .nk { font-family: var(--title-font); font-weight: 500; font-size: .78rem; color: var(--ink-soft); }
 .nt { font-weight: 800; font-size: .92rem; color: var(--accent); line-height: 1.15; }
 
+/* Botón flotante de texto */
+.text-fab {
+  position: fixed; right: calc(16px + env(safe-area-inset-right, 0px)); bottom: calc(16px + var(--sab)); z-index: 60;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+}
+.fab-btn {
+  width: 56px; height: 56px; border-radius: 50%; border: none; cursor: pointer;
+  font-size: 1.3rem; font-weight: 700; color: var(--on-accent); background: var(--a0);
+  box-shadow: 0 10px 26px -8px rgba(0, 0, 0, .6); transition: transform .15s;
+}
+.fab-btn:active { transform: scale(.94); }
+.fab-btn.open { background: var(--card); color: var(--ink); border: 1.5px solid var(--line); }
+.text-panel {
+  background: var(--card); border: 1.5px solid var(--line); border-radius: 18px; padding: 14px 16px;
+  box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 12px; min-width: 230px;
+}
+.tp-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.tp-label { font-size: .78rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-soft); }
+.tp-controls { display: flex; align-items: center; gap: 8px; }
+.tp-value { min-width: 3.2em; text-align: center; font-weight: 800; font-variant-numeric: tabular-nums; }
+.text-panel .ctl { min-width: 48px; min-height: 40px; font-size: 1rem; }
+/* Que el botón no tape los botones de Anterior / Siguiente al final del capítulo */
+.col { padding-bottom: calc(100px + var(--sab)); }
+
 @media (max-width: 860px) {
   .topbar { display: flex; }
   .content { margin-left: 0; padding-top: calc(var(--bar) + var(--sat) + 54px); }
-  .col { padding: 22px 16px calc(60px + var(--sab)); }
+  .col { padding: 22px 16px calc(100px + var(--sab)); }
   .chap-nav { gap: 8px; }
   .nav-btn { padding: 11px 10px; }
   .sidebar {

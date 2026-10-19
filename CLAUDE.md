@@ -17,7 +17,8 @@ publicado con un túnel de Cloudflare). Textos de UI en español rioplatense.
   Didi: capítulos con emoji, tono más emotivo, sin moraleja explícita; Pipa es "él"
   (redondito, escribe con faltas), Cacu es "Fideo" del Pueblo Gris. Último: cap. 109.
 - `server.js`: sirve `dist/` con fallback a `index.html` para las rutas del SPA.
-- Preferencias (tema, letra, mayúsculas) en localStorage con try/catch.
+- Preferencias (tema, letra, mayúsculas) en localStorage con try/catch. En el lector,
+  `TextFab` es el botón flotante "Aa" (abajo a la derecha) con tamaño y abc/ABC.
 - Último cuento de cada nena (`src/progress.js`): localStorage + `GET/PUT /api/progress`
   en `server.js`, guardado en `data/progress.json` (volumen `./data`); gana el más nuevo.
   Se muestra como "Seguir leyendo · cap. N" abajo de cada tarjeta del inicio.
