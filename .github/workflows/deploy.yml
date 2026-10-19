@@ -1,0 +1,39 @@
+name: Deploy
+
+# Cada push a main actualiza el servidor. Corre en un runner self-hosted instalado
+# en el mismo servidor (con el usuario dueño de la carpeta y en el grupo docker),
+# así no hace falta abrir SSH: el runner sale a GitHub, igual que el túnel de Cloudflare.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Si llegan dos pushes seguidos, el segundo espera a que termine el primero
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    timeout-minutes: 20
+    steps:
+      - name: Bajar cambios y reconstruir
+        run: |
+          set -euo pipefail
+          cd "$HOME/proyectos/MisProyectos/cuentosinfantiles"
+          git pull --ff-only
+          docker compose up -d --build
+
+      - name: Verificar que la app responde
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:5175/health; then
+              echo " ← la app responde"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "La app no respondió en 60 segundos" >&2
+          docker compose -f "$HOME/proyectos/MisProyectos/cuentosinfantiles/docker-compose.yml" logs --tail 50 cuentosinfantiles
+          exit 1
