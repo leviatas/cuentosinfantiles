@@ -14,7 +14,10 @@ publicado con un túnel de Cloudflare). Textos de UI en español rioplatense.
   Amelia: ~1000 palabras por capítulo, cada martes a las cuatro Cacu hace un plan
   numerado (el último fue el 365, cap. 140) y termina en el tacho reservado.
 - `server.js`: sirve `dist/` con fallback a `index.html` para las rutas del SPA.
-- Preferencias (tema, letra, mayúsculas, último capítulo) en localStorage con try/catch.
+- Preferencias (tema, letra, mayúsculas) en localStorage con try/catch.
+- Último cuento de cada nena (`src/progress.js`): localStorage + `GET/PUT /api/progress`
+  en `server.js`, guardado en `data/progress.json` (volumen `./data`); gana el más nuevo.
+  Se muestra arriba de todo en el inicio y en la portada de cada libro (`ResumeCard`).
 
 Deploy: `docker compose up -d --build` (puerto 5175) y verificar
 `curl -s http://localhost:5175/health`.

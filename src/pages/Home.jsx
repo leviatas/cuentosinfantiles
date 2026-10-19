@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom';
 import { BOOKS, BOOK_IDS } from '../books.js';
 import Controls from '../components/Controls.jsx';
-import { lastKey, readStore, usePrefs } from '../prefs.js';
+import ResumeCard from '../components/ResumeCard.jsx';
+import { usePrefs } from '../prefs.js';
+import { useProgress } from '../progress.js';
 
 export default function Home() {
   const prefs = usePrefs();
+  const progress = useProgress();
+  const reading = BOOK_IDS.filter((id) => progress[id]);
 
   return (
     <div className="home">
@@ -14,10 +18,17 @@ export default function Home() {
         <p className="home-sub">¿De quién son los cuentos de hoy?</p>
       </header>
 
+      {reading.length > 0 && (
+        <section className="resume-row" aria-label="Seguir leyendo">
+          {reading.map((id) => (
+            <ResumeCard key={id} bookId={id} owner={BOOKS[id].owner} entry={progress[id]} />
+          ))}
+        </section>
+      )}
+
       <div className="picker">
         {BOOK_IDS.map((id) => {
           const book = BOOKS[id];
-          const last = readStore(lastKey(id), null);
           return (
             <div key={id} className="pick-card" data-book={id}>
               <Link to={`/${id}`} className="pick-main">
@@ -26,11 +37,6 @@ export default function Home() {
                 <span className="pick-title">{book.title}</span>
                 <span className="pick-heroes">{book.heroes}</span>
               </Link>
-              {last && (
-                <Link to={`/${id}/${last}`} className="pick-resume">
-                  Seguir leyendo · cap. {last} →
-                </Link>
-              )}
             </div>
           );
         })}

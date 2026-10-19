@@ -3,8 +3,12 @@
 Los cuentos para dormir de **Amelia** (*Súper Labubus*, 140 capítulos) y de
 **Didi** (*Las Superlabubus*, 94 capítulos). El inicio deja elegir de quién son
 los cuentos de hoy; cada libro tiene índice con buscador, modo día/noche,
-tamaño de letra, mayúsculas, botón para copiar el cuento y recuerda el último
-capítulo leído.
+tamaño de letra, mayúsculas y botón para copiar el cuento.
+
+Recuerda el último cuento de cada nena y lo pone arriba de todo en el inicio
+("Amelia estaba leyendo…", "Didi estaba leyendo…") para seguir con un toque.
+Se guarda en el servidor (`data/progress.json`), así que se recuerda aunque
+lean desde otro celular o tablet.
 
 React + Vite para el front, Express (Node) para servirlo, Docker Compose con un
 túnel de Cloudflare para publicarlo en un dominio.

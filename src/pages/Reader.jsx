@@ -2,7 +2,9 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { BOOKS, flatChapters } from '../books.js';
 import Controls from '../components/Controls.jsx';
-import { lastKey, usePrefs, writeStore } from '../prefs.js';
+import ResumeCard from '../components/ResumeCard.jsx';
+import { usePrefs } from '../prefs.js';
+import { saveProgress, useProgress } from '../progress.js';
 
 const fmt = new Intl.NumberFormat('es-AR');
 
@@ -61,6 +63,7 @@ export default function Reader() {
   const { bookId, num } = useParams();
   const meta = BOOKS[bookId];
   const prefs = usePrefs();
+  const lastRead = useProgress();
   const navigate = useNavigate();
   const [book, setBook] = useState(null);
   const [query, setQuery] = useState('');
@@ -85,7 +88,7 @@ export default function Reader() {
 
   useEffect(() => {
     document.title = chapter ? `${chapter.num}. ${chapter.title} · ${meta?.title}` : meta?.title || 'Cuentos';
-    if (chapter) writeStore(lastKey(bookId), chapter.num);
+    if (chapter) saveProgress(bookId, chapter);
     contentRef.current?.scrollTo(0, 0);
     setProgress(0);
     setNavOpen(false);
@@ -201,6 +204,7 @@ export default function Reader() {
 
           {book && !chapter && (
             <section className="cover">
+              <ResumeCard bookId={bookId} owner={meta.owner} entry={lastRead[bookId]} compact />
               <div className="cover-emoji" aria-hidden="true">{meta.emoji}</div>
               <p className="eyebrow">Los cuentos de {meta.owner}</p>
               <h1 className="display cover-title">{meta.title}</h1>

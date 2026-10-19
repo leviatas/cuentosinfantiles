@@ -46,5 +46,3 @@ export function usePrefs() {
     toggleCaps: () => setCaps((c) => !c),
   };
 }
-
-export const lastKey = (bookId) => `cuentos_last_${bookId}`;
