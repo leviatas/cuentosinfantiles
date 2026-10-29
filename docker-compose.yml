@@ -2,7 +2,10 @@ name: cuentosinfantiles
 
 services:
   cuentosinfantiles:
-    build: .
+    build:
+      context: .
+      args:
+        - GIT_SHA=${GIT_SHA:-}
     container_name: cuentosinfantiles
     ports:
       - "5175:3000"

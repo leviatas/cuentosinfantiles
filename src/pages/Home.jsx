@@ -40,6 +40,7 @@ export default function Home() {
 
       <footer className="home-foot">
         <Controls prefs={prefs} />
+        <p className="version">{__APP_VERSION__}</p>
       </footer>
     </div>
   );

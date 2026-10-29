@@ -3,7 +3,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-RUN npm run build
+ARG GIT_SHA=""
+RUN GIT_SHA=$GIT_SHA npm run build
 
 FROM node:22-alpine
 WORKDIR /app
