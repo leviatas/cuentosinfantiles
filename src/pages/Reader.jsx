@@ -215,6 +215,15 @@ export default function Reader() {
                 {chapters.length} capítulos · {fmt.format(totalWords)} palabras
               </p>
               <p className="cover-heroes">{meta.tagline}, con {meta.heroes}.</p>
+              {meta.portrait && (
+                <figure className="cover-portrait">
+                  <img
+                    src={meta.portrait}
+                    alt={`Retrato de los personajes de ${meta.title}`}
+                    onError={(e) => { e.currentTarget.parentElement.hidden = true; }}
+                  />
+                </figure>
+              )}
               <div className="cover-parts">
                 {book.parts.map((part, pi) => (
                   <Link key={pi} to={`/${bookId}/${part.chapters[0].num}`} className="cover-part" data-part={pi % 5}>
