@@ -22,7 +22,14 @@ jobs:
         run: |
           set -euo pipefail
           cd "$HOME/proyectos/MisProyectos/cuentosinfantiles"
-          git pull --ff-only
+          # Siempre main: un `git pull` a secas sigue la rama que haya quedado en el servidor
+          git fetch origin main
+          git checkout main
+          git merge --ff-only origin/main
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" HEAD; then
+            echo "El servidor no quedó en $GITHUB_SHA (está en $(git rev-parse --short HEAD))" >&2
+            exit 1
+          fi
           GIT_SHA=$(git rev-parse --short HEAD) docker compose up -d --build
 
       - name: Verificar que la app responde
