@@ -23,7 +23,7 @@ jobs:
           set -euo pipefail
           cd "$HOME/proyectos/MisProyectos/cuentosinfantiles"
           git pull --ff-only
-          docker compose up -d --build
+          GIT_SHA=$(git rev-parse --short HEAD) docker compose up -d --build
 
       - name: Verificar que la app responde
         run: |

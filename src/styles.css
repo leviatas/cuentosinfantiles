@@ -94,6 +94,7 @@ a { color: inherit; text-decoration: none; }
   background: var(--accent); color: var(--on-accent);
 }
 .home-foot .controls { justify-content: center; margin: 0; }
+.home-foot .version { margin: 14px 0 0; font-size: .75rem; color: var(--ink-soft); opacity: .7; }
 @keyframes flotar { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-8px) rotate(4deg); } }
 @media (max-width: 640px) {
   .picker { grid-template-columns: minmax(0, 1fr); }

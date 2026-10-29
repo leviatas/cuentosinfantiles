@@ -21,6 +21,8 @@ publicado con un túnel de Cloudflare). Textos de UI en español rioplatense.
 - Último cuento de cada nena (`src/progress.js`): localStorage + `GET/PUT /api/progress`
   en `server.js`, guardado en `data/progress.json` (volumen `./data`); gana el más nuevo.
   Se muestra como "Seguir leyendo · cap. N" abajo de cada tarjeta del inicio.
+- Versión al pie del inicio (`__APP_VERSION__` en `vite.config.js`): versión de
+  `package.json` + commit (`GIT_SHA`, lo pasa el deploy) + fecha y hora del build.
 
 Deploy: `docker compose up -d --build` (puerto 5175) y verificar
 `curl -s http://localhost:5175/health`. En el servidor lo hace solo
