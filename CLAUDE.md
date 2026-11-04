@@ -11,7 +11,11 @@ publicado con un túnel de Cloudflare). Textos de UI en español rioplatense.
   El `html` sólo contiene `<strong>`, `<em>` y `<br>` (lo limpia `scripts/extract.py`).
 - Capítulos nuevos: texto plano en `cuentos/<libro>/parte-N/NNN-titulo.txt`, se suman
   con `python3 scripts/add_chapters.py <libro>` (formato en el docstring del script).
-  Amelia: ~1000 palabras por capítulo, cada martes a las cuatro Cacu hace un plan
+  **Límite fijo: ningún capítulo puede pasar de 1000 palabras** (desde Amelia 152 y
+  Didi 98 en adelante, y en cualquier libro nuevo). Apuntar a ~950 para tener margen.
+  `add_chapters.py` corta con error y no guarda el JSON si alguno se pasa
+  (`MAX_WORDS` / `LIMIT_FROM` en el script).
+  Amelia: cada martes a las cuatro Cacu hace un plan
   numerado (el último fue el 380, cap. 155) y termina en el tacho reservado; Mora es
   su aprendiz; cada capítulo cierra con una moraleja (`~ Moraleja: ...`).
   Didi: capítulos con emoji, tono más emotivo, sin moraleja explícita; Pipa es "él"

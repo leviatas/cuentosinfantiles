@@ -14,6 +14,11 @@ y un archivo por capítulo (NNN-titulo.txt). Formato del capítulo:
   > texto               → nota pinchada (usar \\n\\n para cortar renglones)
   ---                   → separador de escena
   **negrita**, *cursiva*
+
+Límite fijo: ningún capítulo puede pasar de MAX_WORDS palabras (contadas como
+las muestra el lector). Rige desde LIMIT_FROM[libro] en adelante y para todos
+los capítulos de un libro nuevo. Si alguno se pasa, el script avisa cuáles y
+no toca el JSON: hay que recortar el .txt y volver a correrlo.
 """
 import html
 import json
@@ -22,6 +27,10 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+
+MAX_WORDS = 1000
+# Primer capítulo de cada libro al que se le aplica el límite.
+LIMIT_FROM = {"amelia": 152, "didi": 98}
 
 
 def inline(text):
@@ -72,6 +81,14 @@ def main(book_id):
         book["parts"] = [p for p in book["parts"] if not nums & {c["num"] for c in p["chapters"]}]
         book["parts"].append(part)
         print(f"{part['label']} · {part['name']}: " + ", ".join(f"{c['num']} ({c['words']} pal.)" for c in chapters))
+    limit_from = LIMIT_FROM.get(book_id, 0)
+    too_long = [c for p in book["parts"] for c in p["chapters"]
+                if c["num"] >= limit_from and c["words"] > MAX_WORDS]
+    if too_long:
+        for c in too_long:
+            print(f"ERROR: cap. {c['num']} «{c['title']}» tiene {c['words']} palabras "
+                  f"(máximo {MAX_WORDS}, sobran {c['words'] - MAX_WORDS})", file=sys.stderr)
+        sys.exit(f"No se guardó {data_path.name}: recortá esos capítulos y volvé a correr el script.")
     book["parts"].sort(key=lambda p: p["chapters"][0]["num"])
     data_path.write_text(json.dumps(book, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
