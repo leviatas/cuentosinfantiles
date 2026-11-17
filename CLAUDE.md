@@ -15,7 +15,7 @@ publicado con un túnel de Cloudflare). Textos de UI en español rioplatense.
   numerado (el último fue el 396, cap. 170) y termina en el tacho reservado; Mora es
   su aprendiz; cada capítulo cierra con una moraleja (`~ Moraleja: ...`).
   Didi: capítulos con emoji, tono más emotivo, sin moraleja explícita; Pipa es "él"
-  (redondito, escribe con faltas), Cacu es "Fideo" del Pueblo Gris. Último: cap. 109.
+  (redondito, escribe con faltas), Cacu es "Fideo" del Pueblo Gris. Último: cap. 110.
 - `server.js`: sirve `dist/` con fallback a `index.html` para las rutas del SPA.
 - Preferencias (tema, letra, mayúsculas) en localStorage con try/catch.
 - Último cuento de cada nena (`src/progress.js`): localStorage + `GET/PUT /api/progress`
